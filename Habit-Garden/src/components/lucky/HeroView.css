@@ -1,0 +1,277 @@
+/*Main page*/
+
+.hero {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: #fdf9f0;
+  color: #1c1c17;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dark mode */
+
+.dark .hero {
+  background: #142214;
+  color: white;
+}
+
+/*BLOBS */
+
+.blob {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+}
+
+.blob-one {
+  top: 50px;
+  left: -100px;
+  background: #9dcc96;
+}
+
+.blob-two {
+  right: -100px;
+  bottom: 50px;
+  background: #b8d9b0;
+}
+
+/*HERO TEXT */
+
+.hero-text {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text h1 {
+  font-size: 45px;
+  margin-bottom: 20px;
+}
+
+.hero-text h1 span {
+  color: #4a6549;
+}
+
+.dark .hero-text h1 span {
+  color: #ccebc7;
+}
+
+.hero-text p {
+  max-width: 600px;
+  margin: 0 auto 25px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.dark .hero-text p {
+  color: #ccc;
+}
+
+/*BUTTONS */
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.buttons button {
+  padding: 14px 25px;
+  border: none;
+  border-radius: 30px;
+  background: #4a6549;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+
+  /* Shadow */
+  box-shadow: 0 5px 15px #0002;
+
+  /* Smooth hover */
+  transition: 0.3s;
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+}
+
+.buttons .demo {
+  background: transparent;
+  color: #4a6549;
+  border: 2px solid #8ba888;
+}
+
+.dark .buttons .demo {
+  color: #ccebc7;
+}
+
+/*GARDEN*/
+
+.garden {
+  max-width: 900px;
+  height: 450px;
+  margin: 60px auto;
+  padding: 10px;
+  background: white;
+  border-radius: 35px;
+
+  /* Shadow */
+  box-shadow: 0 10px 30px #0002;
+}
+
+.dark .garden {
+  background: #203820;
+}
+
+/* Sky */
+.sky {
+  height: 100%;
+  border-radius: 25px;
+  overflow: hidden;
+
+  /* Blue sky */
+  background: linear-gradient(#8fd0f0, #cbeeff);
+
+  position: relative;
+}
+
+/* Grass */
+
+.ground {
+  position: absolute;
+  bottom: 0;
+
+  width: 100%;
+  height: 40%;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 15px;
+
+  /* Green grass */
+  background: linear-gradient(#7cbb3f, #6aa834);
+}
+
+/*FEATURES*/
+
+.features {
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+
+.features h2 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+/* Cards */
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+.card {
+  padding: 25px;
+  border-radius: 25px;
+  background: #f0f7ed;
+
+  /* Shadow */
+  box-shadow: 0 5px 15px #0002;
+
+  /* Hover animation */
+  transition: 0.3s;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.dark .card {
+  background: #203820;
+}
+
+.card p {
+  line-height: 1.5;
+}
+
+.dark .card p {
+  color: #ccc;
+}
+
+/* Icons */
+
+.icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #b9dcae;
+
+  font-size: 24px;
+}
+
+/* Little plant decoration */
+
+.plant-decoration {
+  position: absolute;
+  right: 15px;
+  bottom: 5px;
+
+  font-size: 80px;
+  opacity: 0.1;
+}
+
+/*MOBILE*/
+
+@media (max-width: 700px) {
+
+  /* Smaller heading */
+  .hero-text h1 {
+    font-size: 35px;
+  }
+
+  /* Stack buttons */
+  .buttons {
+    flex-direction: column;
+  }
+
+  /* Full-width buttons */
+  .buttons button {
+    width: 100%;
+  }
+
+  /* Smaller garden */
+  .garden {
+    height: 350px;
+  }
+
+  /* Stack cards */
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Smaller space between plants */
+  .ground {
+    gap: 5px;
+  }
+}
