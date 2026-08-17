@@ -1,10 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-createRoot(document.getElementById('root')).render(
+import BottomNav from "./components/victor/BottomNav";
+import Navbar from "./components/victor/Navbar";
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <BottomNav />
+    <Navbar />
   </StrictMode>,
-)
+);
