@@ -1,0 +1,325 @@
+/* ===========================================
+   Habit Garden — styles for the garden page
+   Sweet, colorful, plant-themed. Nothing fancy —
+   just gradients, rounded corners, and playful fonts.
+=========================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap");
+
+.garden-page {
+  /* Space to leave at the top so the navbar doesn't cover anything.
+     Change this if your navbar's height changes. */
+  min-height: 100vh;
+  padding: 96px 20px 60px; /* 96px = navbar height (~72px) + 24px breathing room */
+  background: linear-gradient(180deg, #fff3e8 0%, #ffe8f2 55%, #f4e9ff 100%);
+  color: #4a2545;
+  font-family: "Nunito", sans-serif;
+}
+
+/* Makes sizing predictable and stops long text/icons from
+   pushing cards wider than they should be. */
+.garden-page * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* ---------- Header ---------- */
+
+.garden-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto 24px;
+}
+
+.garden-header h1 {
+  font-family: "Baloo 2", sans-serif;
+  font-size: clamp(22px, 5vw, 28px);
+  color: #ff6fa5;
+  margin: 0 0 4px;
+}
+
+.garden-header p {
+  margin: 0;
+  font-weight: 600;
+  color: #8a6b8a;
+}
+
+.level-badge {
+  background: linear-gradient(135deg, #ffc93c, #ffb18a);
+  color: #5a3200;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------- Add-habit form + button ---------- */
+
+.plant-form {
+  max-width: 720px;
+  margin: 0 auto 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plant-form input {
+  flex: 1 1 160px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 2px solid #ffdff0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a2545;
+}
+
+.plant-form input:focus {
+  outline: none;
+  border-color: #ff6fa5;
+}
+
+.plant-form button {
+  background: #4fd18f;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 0 22px;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.plant-error {
+  max-width: 720px;
+  margin: -4px auto 12px;
+  color: #e0407a;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.plant-button {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 24px;
+  background: white;
+  color: #ff6fa5;
+  border: 2px dashed #ff6fa5;
+  border-radius: 14px;
+  padding: 12px;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.plant-button:hover {
+  background: #ffd6e8;
+}
+
+/* ---------- "Today's Bloom" progress card ---------- */
+
+.bloom-card {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  background: #fffdfb;
+  border: 2px solid #ffdff0;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bloom-info {
+  flex: 1 1 220px;
+}
+
+.bloom-info h2 {
+  font-family: "Baloo 2", sans-serif;
+  margin: 0 0 4px;
+}
+
+.bloom-info p {
+  margin: 0 0 10px;
+  font-weight: 600;
+  color: #8a6b8a;
+}
+
+.progress-track {
+  width: 100%;
+  max-width: 260px;
+  height: 12px;
+  border-radius: 999px;
+  background: #c7f3dd;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4fd18f, #ffc93c);
+}
+
+.bloom-icon {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffc93c;
+  border-radius: 50%;
+}
+
+.bloom-icon svg,
+.bloom-icon img {
+  max-width: 70%;
+  max-height: 70%;
+}
+
+/* ---------- Garden plot cards ---------- */
+
+.plots-heading {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  font-family: "Baloo 2", sans-serif;
+  color: #4a2545;
+}
+
+.plots-grid {
+  max-width: 720px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+.plot-card {
+  position: relative;
+  background: #fffdfb;
+  border: 2px solid #ffdff0;
+  border-radius: 18px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* colorful stripe across the top, cycling per card */
+.plot-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #ff6fa5;
+}
+
+.plot-card:nth-of-type(4n + 2)::before { background: #6fc3ff; }
+.plot-card:nth-of-type(4n + 3)::before { background: #ffc93c; }
+.plot-card:nth-of-type(4n + 4)::before { background: #b69cdc; }
+
+.plot-card:hover {
+  transform: translateY(-2px);
+}
+
+.plot-card.plot-done {
+  background: #c7f3dd;
+  border-color: #9de6bf;
+}
+
+.plot-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plot-category {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #ff6fa5;
+  background: #ffd6e8;
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+
+.plot-check {
+  color: #2fae6f;
+  font-weight: 800;
+}
+
+.water-button {
+  background: #6fc3ff;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.plot-plant {
+  align-self: center;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plot-plant svg,
+.plot-plant img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.plot-title {
+  margin: 0;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 15px;
+}
+
+.plot-status {
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a6b8a;
+}
+
+.plot-card.plot-empty {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  border: 2px dashed #ffc2dd;
+  color: #8a6b8a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.plot-card.plot-empty::before {
+  display: none;
+}
+
+.plot-card.plot-empty:hover {
+  border-color: #ff6fa5;
+  color: #ff6fa5;
+}
+
+.plot-empty-icon {
+  font-size: 22px;
+  color: #ff6fa5;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 480px) {
+  .bloom-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

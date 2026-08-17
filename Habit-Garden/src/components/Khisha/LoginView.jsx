@@ -82,10 +82,7 @@ function LoginPage() {
 
     const savedUser = JSON.parse(storedUser);
 
-    if (
-      savedUser.email === cleanEmail &&
-      savedUser.password === password
-    ) {
+    if (savedUser.email === cleanEmail && savedUser.password === password) {
       localStorage.setItem("hg_loggedIn", "true");
 
       navigate("/profile");
@@ -336,9 +333,7 @@ function LoginPage() {
               placeholder="At least 6 characters"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              autoComplete={
-                isSignup ? "new-password" : "current-password"
-              }
+              autoComplete={isSignup ? "new-password" : "current-password"}
               required
             />
           </div>
@@ -349,17 +344,11 @@ function LoginPage() {
         </form>
 
         <p className="auth-switch">
-          {isSignup
-            ? "Already have an account?"
-            : "Don't have an account?"}{" "}
-          <span onClick={toggleMode}>
-            {isSignup ? "Log in" : "Create one"}
-          </span>
+          {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+          <span onClick={toggleMode}>{isSignup ? "Log in" : "Create one"}</span>
         </p>
 
-        <div className="auth-footer">
-          🌿 Small habits. Meaningful growth.
-        </div>
+        <div className="auth-footer">🌿 Small habits. Meaningful growth.</div>
       </div>
     </div>
   );

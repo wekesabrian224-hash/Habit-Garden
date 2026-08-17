@@ -4,24 +4,15 @@ import { useNavigate } from "react-router-dom";
 function ProfilePage() {
   const navigate = useNavigate();
 
-  const savedUser =
-    JSON.parse(localStorage.getItem("hg_user")) || {};
+  const savedUser = JSON.parse(localStorage.getItem("hg_user")) || {};
 
   const [user, setUser] = useState(savedUser);
-  const [darkMode, setDarkMode] = useState(
-    savedUser.darkMode || false
-  );
-  const [reminders, setReminders] = useState(
-    savedUser.reminders ?? true
-  );
+  const [darkMode, setDarkMode] = useState(savedUser.darkMode || false);
+  const [reminders, setReminders] = useState(savedUser.reminders ?? true);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [nameDraft, setNameDraft] = useState(
-    savedUser.name || ""
-  );
-  const [emailDraft, setEmailDraft] = useState(
-    savedUser.email || ""
-  );
+  const [nameDraft, setNameDraft] = useState(savedUser.name || "");
+  const [emailDraft, setEmailDraft] = useState(savedUser.email || "");
 
   const updateUser = (changes) => {
     const updatedUser = {
@@ -573,39 +564,30 @@ function ProfilePage() {
       `}</style>
 
       <div className="profile-container">
-
         {/* PROFILE HEADER */}
         <section className="profile-header">
           {isEditing ? (
             <div className="edit-form">
               <div className="edit-field">
-                <label htmlFor="profile-name">
-                  Name
-                </label>
+                <label htmlFor="profile-name">Name</label>
 
                 <input
                   id="profile-name"
                   type="text"
                   value={nameDraft}
-                  onChange={(event) =>
-                    setNameDraft(event.target.value)
-                  }
+                  onChange={(event) => setNameDraft(event.target.value)}
                   placeholder="Garden Keeper"
                 />
               </div>
 
               <div className="edit-field">
-                <label htmlFor="profile-email">
-                  Email
-                </label>
+                <label htmlFor="profile-email">Email</label>
 
                 <input
                   id="profile-email"
                   type="email"
                   value={emailDraft}
-                  onChange={(event) =>
-                    setEmailDraft(event.target.value)
-                  }
+                  onChange={(event) => setEmailDraft(event.target.value)}
                   placeholder="you@example.com"
                   autoComplete="email"
                 />
@@ -641,11 +623,7 @@ function ProfilePage() {
                 </span>
               </div>
 
-              <button
-                type="button"
-                className="edit-btn"
-                onClick={startEditing}
-              >
+              <button type="button" className="edit-btn" onClick={startEditing}>
                 ✏️ Edit Profile
               </button>
             </div>
@@ -654,122 +632,82 @@ function ProfilePage() {
 
         {/* GARDEN STATS */}
         <section className="section">
-          <h2 className="section-title">
-            My Garden 🌿
-          </h2>
+          <h2 className="section-title">My Garden 🌿</h2>
 
           <div className="stats">
             <div className="stat">
               <span className="stat-icon">🔥</span>
-              <p className="stat-number">
-                {profile.streak}
-              </p>
-              <p className="stat-label">
-                Day Streak
-              </p>
+              <p className="stat-number">{profile.streak}</p>
+              <p className="stat-label">Day Streak</p>
             </div>
 
             <div className="stat">
               <span className="stat-icon">💧</span>
-              <p className="stat-number">
-                {profile.checkIns}
-              </p>
-              <p className="stat-label">
-                Check-ins
-              </p>
+              <p className="stat-number">{profile.checkIns}</p>
+              <p className="stat-label">Check-ins</p>
             </div>
 
             <div className="stat">
               <span className="stat-icon">🌱</span>
-              <p className="stat-number">
-                {profile.growth}%
-              </p>
-              <p className="stat-label">
-                Plant Growth
-              </p>
+              <p className="stat-number">{profile.growth}%</p>
+              <p className="stat-label">Plant Growth</p>
             </div>
 
             <div className="stat">
               <span className="stat-icon">🪙</span>
-              <p className="stat-number">
-                {profile.points}
-              </p>
-              <p className="stat-label">
-                Garden Points
-              </p>
+              <p className="stat-number">{profile.points}</p>
+              <p className="stat-label">Garden Points</p>
             </div>
           </div>
         </section>
 
         {/* CURRENT HABIT */}
         <section className="section">
-          <h2 className="section-title">
-            Current Habit 🌱
-          </h2>
+          <h2 className="section-title">Current Habit 🌱</h2>
 
           <div className="habit-card">
-            <div className="plant">
-              {getPlant()}
-            </div>
+            <div className="plant">{getPlant()}</div>
 
             <div className="habit-content">
               <h3>{profile.habit}</h3>
 
-              <p>
-                Your plant is currently{" "}
-                {profile.growth}% grown.
-              </p>
+              <p>Your plant is currently {profile.growth}% grown.</p>
 
               <div className="progress-background">
                 <div
                   className="progress"
                   style={{
-                    width: `${Math.min(
-                      profile.growth,
-                      100
-                    )}%`,
+                    width: `${Math.min(profile.growth, 100)}%`,
                   }}
                 />
               </div>
 
-              <span className="progress-text">
-                {profile.growth}% complete
-              </span>
+              <span className="progress-text">{profile.growth}% complete</span>
             </div>
           </div>
         </section>
 
         {/* ACHIEVEMENTS */}
         <section className="section">
-          <h2 className="section-title">
-            Achievements 🏆
-          </h2>
+          <h2 className="section-title">Achievements 🏆</h2>
 
           <div className="achievements">
             {achievements.map((achievement) => (
               <div
                 key={achievement.title}
                 className={`achievement ${
-                  achievement.unlocked
-                    ? ""
-                    : "locked"
+                  achievement.unlocked ? "" : "locked"
                 }`}
               >
-                <div className="achievement-icon">
-                  {achievement.icon}
-                </div>
+                <div className="achievement-icon">{achievement.icon}</div>
 
                 <div>
                   <h3>{achievement.title}</h3>
 
-                  <p>
-                    {achievement.description}
-                  </p>
+                  <p>{achievement.description}</p>
 
                   <span className="achievement-status">
-                    {achievement.unlocked
-                      ? "Unlocked ✓"
-                      : "Locked 🔒"}
+                    {achievement.unlocked ? "Unlocked ✓" : "Locked 🔒"}
                   </span>
                 </div>
               </div>
@@ -779,25 +717,19 @@ function ProfilePage() {
 
         {/* PREFERENCES */}
         <section className="section">
-          <h2 className="section-title">
-            Preferences ⚙️
-          </h2>
+          <h2 className="section-title">Preferences ⚙️</h2>
 
           <div className="preferences">
             <div className="preference">
               <div>
                 <h3>🌙 Dark Mode</h3>
 
-                <p>
-                  Use a darker appearance for your garden.
-                </p>
+                <p>Use a darker appearance for your garden.</p>
               </div>
 
               <button
                 type="button"
-                className={`toggle ${
-                  darkMode ? "active" : ""
-                }`}
+                className={`toggle ${darkMode ? "active" : ""}`}
                 onClick={toggleDarkMode}
                 aria-label="Toggle dark mode"
               >
@@ -809,16 +741,12 @@ function ProfilePage() {
               <div>
                 <h3>🔔 Habit Reminders</h3>
 
-                <p>
-                  Receive reminders to complete your habits.
-                </p>
+                <p>Receive reminders to complete your habits.</p>
               </div>
 
               <button
                 type="button"
-                className={`toggle ${
-                  reminders ? "active" : ""
-                }`}
+                className={`toggle ${reminders ? "active" : ""}`}
                 onClick={toggleReminders}
                 aria-label="Toggle habit reminders"
               >
@@ -830,15 +758,10 @@ function ProfilePage() {
 
         {/* LOGOUT */}
         <section className="section">
-          <button
-            type="button"
-            className="logout"
-            onClick={handleLogout}
-          >
+          <button type="button" className="logout" onClick={handleLogout}>
             🚪 Log Out
           </button>
         </section>
-
       </div>
     </div>
   );
