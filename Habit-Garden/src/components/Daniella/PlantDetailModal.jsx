@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PixelPlant, speciesForCategory, stageFromProgress } from "../garden/plants.jsx";
+import { PixelPlant, speciesForCategory, stageFromProgress } from "../lucky/Garden/Plants";
 
 // A single row in the "Today's Care" list.
 // I pulled this into its own small component so the main modal stays

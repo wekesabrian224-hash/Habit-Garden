@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { PixelPlant, speciesForCategory } from "../garden/plants.jsx";
+import { PixelPlant, speciesForCategory } from "../lucky/Garden/Plants";
+
 
 const seedOptions = [
   { icon: "water_drop", name: "Water", category: "Health" },
