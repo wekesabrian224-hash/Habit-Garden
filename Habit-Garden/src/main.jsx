@@ -1,20 +1,9 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import ShopView from "./components/lucky/ShopView";
-import HeroView from "./components/lucky/HeroView";
-import BottomNav from "./components/victor/BottomNav";
-import Navbar from "./components/victor/Navbar";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./app.jsx";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Navbar />
-    <ShopView />
-    <HeroView />
-    <BottomNav />
-  </StrictMode>
-);
-
-  </StrictMode>,
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
