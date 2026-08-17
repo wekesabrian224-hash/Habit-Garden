@@ -10,6 +10,25 @@ const seedOptions = [
   { icon: "edit_note", name: "Journal", category: "Journal" },
 ];
 
+// One seed choice in the horizontal picker.
+// Pulled out on its own so the form doesn't get buried under styling,
+// and each button just says whether it's the selected one.
+function SeedButton({ seed, isSelected, onSelect }) {
+  const buttonStyle = isSelected
+    ? "border-[#4a6549] bg-[#8ba888] text-[#243d24] scale-105 font-bold"
+    : "border-transparent bg-[#ece8df] dark:bg-[#243d24] text-[#434841] dark:text-[#c3c8bf] hover:border-[#ccebc7]";
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`flex-shrink-0 w-16 h-16 rounded-2xl border-2 transition-all flex flex-col items-center justify-center shadow-sm ${buttonStyle}`}
+    >
+      <span className={`material-symbols-outlined text-2xl ${isSelected ? "filled" : ""}`}>{seed.icon}</span>
+    </button>
+  );
+}
+
 export const PlantHabitModal = ({ isOpen, onClose, onAddHabit }) => {
   const [title, setTitle] = useState("");
   const [selectedSeed, setSelectedSeed] = useState({ icon: "water_drop", category: "Health" });
@@ -19,15 +38,21 @@ export const PlantHabitModal = ({ isOpen, onClose, onAddHabit }) => {
 
   const previewSpecies = speciesForCategory(selectedSeed.category);
 
-  // controlled form, thus we stop page from reloading w preventDefault().
+  // A title with only spaces shouldn't count, so I trim before checking.
+  // Naming it once keeps the button's disabled check and the submit guard in sync.
+  const hasTitle = title.trim().length > 0;
+
+  // Controlled form, so preventDefault() stops the page from reloading.
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!hasTitle) return;
 
+    const cleanTitle = title.trim();
     const now = Date.now();
+
     const newHabit = {
       id: `habit-${now}`,
-      title: title.trim(),
+      title: cleanTitle,
       category: selectedSeed.category,
       icon: selectedSeed.icon,
       species: speciesForCategory(selectedSeed.category),
@@ -36,7 +61,7 @@ export const PlantHabitModal = ({ isOpen, onClose, onAddHabit }) => {
       progress: 15,
       schedule,
       completedToday: false,
-      tasks: [{ id: `t-${now}-1`, label: `Complete ${title.trim()}`, completed: false }],
+      tasks: [{ id: `t-${now}-1`, label: `Complete ${cleanTitle}`, completed: false }],
     };
 
     onAddHabit(newHabit);
@@ -57,6 +82,7 @@ export const PlantHabitModal = ({ isOpen, onClose, onAddHabit }) => {
         <div className="w-12 h-1.5 bg-[#c3c8bf] dark:bg-[#737970] rounded-full mx-auto mb-6" />
         <h2 className="font-bold text-2xl sm:text-3xl text-[#1c1c17] dark:text-[#fdf9f0] text-center mb-6">Plant a new habit</h2>
 
+        {/* Live preview of the plant you're about to grow */}
         <div className="flex justify-center mb-6">
           <div className="w-28 h-28 rounded-full bg-[#eafbe4] dark:bg-[#243d24] flex items-end justify-center shadow-md border-2 border-[#ccebc7] overflow-hidden">
             <PixelPlant stage={1} species={previewSpecies} size={80} />
@@ -76,48 +102,49 @@ export const PlantHabitModal = ({ isOpen, onClose, onAddHabit }) => {
             />
           </div>
 
+          {/* Seed picker */}
           <div>
             <label className="text-xs font-bold text-[#434841] dark:text-[#c3c8bf] mb-3 block">Choose a seed</label>
             <div className="flex space-x-3 overflow-x-auto hide-scrollbar pb-2 pt-1 px-1">
-              {seedOptions.map((seed, idx) => {
-                const isSelected = selectedSeed.icon === seed.icon;
+              {seedOptions.map((seed) => (
+                <SeedButton
+                  key={seed.icon}
+                  seed={seed}
+                  isSelected={selectedSeed.icon === seed.icon}
+                  onSelect={() => setSelectedSeed({ icon: seed.icon, category: seed.category })}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Watering schedule */}
+          <div>
+            <label className="text-xs font-bold text-[#434841] dark:text-[#c3c8bf] mb-3 block">Watering Schedule</label>
+            <div className="grid grid-cols-2 gap-3">
+              {["Daily", "Weekdays"].map((option) => {
+                const isSelected = schedule === option;
+                const optionStyle = isSelected
+                  ? "border-[#4a6549] bg-[#8ba888] text-[#243d24]"
+                  : "border-[#c3c8bf]/50 bg-[#f7f3ea] dark:bg-[#243d24] text-[#434841] dark:text-[#c3c8bf]";
+
                 return (
                   <button
-                    key={idx}
+                    key={option}
                     type="button"
-                    onClick={() => setSelectedSeed({ icon: seed.icon, category: seed.category })}
-                    className={`flex-shrink-0 w-16 h-16 rounded-2xl border-2 transition-all flex flex-col items-center justify-center shadow-sm ${
-                      isSelected ? "border-[#4a6549] bg-[#8ba888] text-[#243d24] scale-105 font-bold" : "border-transparent bg-[#ece8df] dark:bg-[#243d24] text-[#434841] dark:text-[#c3c8bf] hover:border-[#ccebc7]"
-                    }`}
+                    onClick={() => setSchedule(option)}
+                    className={`py-3.5 px-4 rounded-2xl border-2 font-bold text-base transition-colors text-center ${optionStyle}`}
                   >
-                    <span className={`material-symbols-outlined text-2xl ${isSelected ? "filled" : ""}`}>{seed.icon}</span>
+                    {option}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          <div>
-            <label className="text-xs font-bold text-[#434841] dark:text-[#c3c8bf] mb-3 block">Watering Schedule</label>
-            <div className="grid grid-cols-2 gap-3">
-              {["Daily", "Weekdays"].map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setSchedule(s)}
-                  className={`py-3.5 px-4 rounded-2xl border-2 font-bold text-base transition-colors text-center ${
-                    schedule === s ? "border-[#4a6549] bg-[#8ba888] text-[#243d24]" : "border-[#c3c8bf]/50 bg-[#f7f3ea] dark:bg-[#243d24] text-[#434841] dark:text-[#c3c8bf]"
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-
+          {/* Disabled until there's a real title, matching the submit guard above. */}
           <button
             type="submit"
-            disabled={!title.trim()}
+            disabled={!hasTitle}
             className="w-full bg-[#4a6549] text-white font-bold text-lg py-4 rounded-full shadow-[0_4px_16px_rgba(74,101,73,0.25)] hover:bg-[#243d24] active:scale-98 transition-all duration-200 mt-4 disabled:opacity-50"
           >
             Plant it!
